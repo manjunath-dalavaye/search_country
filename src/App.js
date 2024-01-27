@@ -1,17 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
 
-function App() {
-  // State to store all countries
+const App = () => {
   const [countries, setCountries] = useState([]);
-  
-  // State to store filtered countries based on search term
   const [filteredCountries, setFilteredCountries] = useState([]);
-  
-  // State to store the search term entered by the user
   const [searchTerm, setSearchTerm] = useState('');
 
-  // useEffect to fetch countries from the API on initial render
   useEffect(() => {
     fetch('https://restcountries.com/v3.1/all')
       .then(response => response.json())
@@ -19,7 +12,6 @@ function App() {
       .catch(error => console.error('Error fetching countries:', error));
   }, []);
 
-  // useEffect to filter countries based on the search term
   useEffect(() => {
     setFilteredCountries(
       countries.filter(country =>
@@ -29,35 +21,27 @@ function App() {
   }, [countries, searchTerm]);
 
   return (
-    <div className="app">
-      {/* Input for searching countries */}
+    <div>
       <input
         type="text"
-        id="searchInput"
         placeholder="Search country..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-
-      {/* Container for displaying country cards */}
-      <div className="countries-container">
-        {/* Map through filteredCountries and display a card for each country */}
+      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         {filteredCountries.map(country => (
-          <div key={country.cca2} className="country-card">
-            {/* Display country flag */}
+          <div key={country.cca2} style={{ margin: '10px', textAlign: 'center' }}>
             <img
               src={country.flags.png}
               alt={country.name.common}
-              className="flag-image"
+              style={{ width: '100px', height: 'auto', borderRadius: '5px', boxShadow: '0 0 5px rgba(0, 0, 0, 0.3)' }}
             />
-            
-            {/* Display country name */}
             <p>{country.name.common}</p>
           </div>
         ))}
       </div>
     </div>
   );
-}
+};
 
 export default App;
