@@ -1,4 +1,6 @@
+// App.js
 import React, { useState, useEffect } from 'react';
+import './App.css';
 
 const App = () => {
   const [countries, setCountries] = useState([]);
@@ -28,13 +30,13 @@ const App = () => {
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+      <div className="countryContainer">
         {filteredCountries.map(country => (
-          <div key={country.cca2} style={{ margin: '10px', textAlign: 'center' }}>
+          <div key={country.cca2} className="countryCard">
             <img
               src={country.flags.png}
               alt={country.name.common}
-              style={{ width: '100px', height: 'auto', borderRadius: '5px', boxShadow: '0 0 5px rgba(0, 0, 0, 0.3)' }}
+              className="countryFlag"
             />
             <p>{country.name.common}</p>
           </div>
